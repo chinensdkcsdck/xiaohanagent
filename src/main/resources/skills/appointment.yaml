@@ -1,0 +1,40 @@
+﻿skillId: appointment_workflow
+description: 门诊预约、改约、取消、候补、检查预约、复诊相关流程
+priority: 100
+routeAgent: APPOINTMENT
+maxAskTurns: 2
+askFallbackReply: 为避免反复追问，请直接回复“科室 + 日期 + 上午/下午”，例如“心内科 明天 上午”。
+intentExamples:
+  - 我想挂号
+  - 帮我改约到下周
+  - 取消我的预约
+keywords:
+  - 挂号
+  - 预约
+  - 改约
+  - 取消预约
+  - 候补
+  - 复诊
+  - 检查预约
+negativeKeywords:
+  - 报告
+  - 解读
+  - 用药
+  - 医保
+  - 分诊
+  - 工单
+  - 看板
+requiredSlots:
+  - department
+  - date
+  - period
+toolWhitelist:
+  - 预约挂号
+  - 取消预约挂号
+  - 改约挂号
+  - 门诊候补登记
+  - 预约检查检验
+  - 取消检查检验预约
+  - 创建复诊计划
+riskPolicy: medical_normal
+fallbackReply: 我可以帮你处理挂号、改约、取消、候补和复诊预约。

@@ -1,0 +1,569 @@
+{
+  "groups": [
+    {
+      "name": "langchain4j.community.dashscope",
+      "type": "dev.langchain4j.community.dashscope.spring.Properties",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.Properties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model",
+      "type": "dev.langchain4j.community.dashscope.spring.ChatModelProperties",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.Properties",
+      "sourceMethod": "getChatModel()"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters",
+      "type": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties",
+      "sourceMethod": "getParameters()"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.search-options",
+      "type": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$SearchOptions",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters",
+      "sourceMethod": "getSearchOptions()"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.translation-options",
+      "type": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptions",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters",
+      "sourceMethod": "getTranslationOptions()"
+    },
+    {
+      "name": "langchain4j.community.dashscope.embedding-model",
+      "type": "dev.langchain4j.community.dashscope.spring.EmbeddingModelProperties",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.Properties",
+      "sourceMethod": "getEmbeddingModel()"
+    },
+    {
+      "name": "langchain4j.community.dashscope.language-model",
+      "type": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.Properties",
+      "sourceMethod": "getLanguageModel()"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model",
+      "type": "dev.langchain4j.community.dashscope.spring.ChatModelProperties",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.Properties",
+      "sourceMethod": "getStreamingChatModel()"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters",
+      "type": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties",
+      "sourceMethod": "getParameters()"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.search-options",
+      "type": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$SearchOptions",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters",
+      "sourceMethod": "getSearchOptions()"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.translation-options",
+      "type": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptions",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters",
+      "sourceMethod": "getTranslationOptions()"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-language-model",
+      "type": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.Properties",
+      "sourceMethod": "getStreamingLanguageModel()"
+    },
+    {
+      "name": "langchain4j.community.dashscope.tokenizer",
+      "type": "dev.langchain4j.community.dashscope.spring.TokenizerProperties",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.Properties",
+      "sourceMethod": "getTokenizer()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "langchain4j.community.dashscope.chat-model.api-key",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.base-url",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.enable-search",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.is-multimodal-model",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.max-tokens",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.model-name",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.enable-search",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.frequency-penalty",
+      "type": "java.lang.Double",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.max-output-tokens",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.model-name",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.presence-penalty",
+      "type": "java.lang.Double",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.response-format",
+      "type": "dev.langchain4j.model.chat.request.ResponseFormatType",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.search-options.citation-format",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$SearchOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.search-options.enable-citation",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$SearchOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.search-options.enable-source",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$SearchOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.search-options.forced-search",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$SearchOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.search-options.search-strategy",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$SearchOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.seed",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.stop-sequences",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.temperature",
+      "type": "java.lang.Double",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.tool-choice",
+      "type": "dev.langchain4j.model.chat.request.ToolChoice",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.top-k",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.top-p",
+      "type": "java.lang.Double",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.translation-options.domains",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.translation-options.source-lang",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.translation-options.target-lang",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.translation-options.terms",
+      "type": "java.util.List<dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptionTerm>",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.translation-options.tm-list",
+      "type": "java.util.List<dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptionTerm>",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.parameters.vl-high-resolution-images",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.repetition-penalty",
+      "type": "java.lang.Float",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.seed",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.stops",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.temperature",
+      "type": "java.lang.Float",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.top-k",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.chat-model.top-p",
+      "type": "java.lang.Double",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.embedding-model.api-key",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.EmbeddingModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.embedding-model.base-url",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.EmbeddingModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.embedding-model.model-name",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.EmbeddingModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.language-model.api-key",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.language-model.base-url",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.language-model.enable-search",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.language-model.max-tokens",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.language-model.model-name",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.language-model.repetition-penalty",
+      "type": "java.lang.Float",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.language-model.seed",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.language-model.stops",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.language-model.temperature",
+      "type": "java.lang.Float",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.language-model.top-k",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.language-model.top-p",
+      "type": "java.lang.Double",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.api-key",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.base-url",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.enable-search",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.is-multimodal-model",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.max-tokens",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.model-name",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.enable-search",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.frequency-penalty",
+      "type": "java.lang.Double",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.max-output-tokens",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.model-name",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.presence-penalty",
+      "type": "java.lang.Double",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.response-format",
+      "type": "dev.langchain4j.model.chat.request.ResponseFormatType",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.search-options.citation-format",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$SearchOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.search-options.enable-citation",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$SearchOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.search-options.enable-source",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$SearchOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.search-options.forced-search",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$SearchOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.search-options.search-strategy",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$SearchOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.seed",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.stop-sequences",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.temperature",
+      "type": "java.lang.Double",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.tool-choice",
+      "type": "dev.langchain4j.model.chat.request.ToolChoice",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.top-k",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.top-p",
+      "type": "java.lang.Double",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.translation-options.domains",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.translation-options.source-lang",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.translation-options.target-lang",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.translation-options.terms",
+      "type": "java.util.List<dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptionTerm>",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.translation-options.tm-list",
+      "type": "java.util.List<dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptionTerm>",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$TranslationOptions"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.parameters.vl-high-resolution-images",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties$Parameters"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.repetition-penalty",
+      "type": "java.lang.Float",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.seed",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.stops",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.temperature",
+      "type": "java.lang.Float",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.top-k",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-chat-model.top-p",
+      "type": "java.lang.Double",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.ChatModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-language-model.api-key",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-language-model.base-url",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-language-model.enable-search",
+      "type": "java.lang.Boolean",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-language-model.max-tokens",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-language-model.model-name",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-language-model.repetition-penalty",
+      "type": "java.lang.Float",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-language-model.seed",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-language-model.stops",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-language-model.temperature",
+      "type": "java.lang.Float",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-language-model.top-k",
+      "type": "java.lang.Integer",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.streaming-language-model.top-p",
+      "type": "java.lang.Double",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.LanguageModelProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.tokenizer.api-key",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.TokenizerProperties"
+    },
+    {
+      "name": "langchain4j.community.dashscope.tokenizer.model-name",
+      "type": "java.lang.String",
+      "sourceType": "dev.langchain4j.community.dashscope.spring.TokenizerProperties"
+    }
+  ],
+  "hints": []
+}

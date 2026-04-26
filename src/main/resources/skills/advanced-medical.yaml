@@ -1,0 +1,41 @@
+﻿skillId: advanced_medical_assistant
+description: 分诊、报告解读、用药安全、费用医保、慢病随访、运营摘要
+priority: 90
+routeAgent: ADVANCED
+maxAskTurns: 1
+askFallbackReply: 你可以直接说清诉求，例如“解读报告”或“评估用药风险”。
+intentExamples:
+  - 帮我看下这份报告
+  - 评估一下用药风险
+  - 给我做个分诊建议
+keywords:
+  - 分诊
+  - 导诊
+  - 报告
+  - 解读
+  - 用药
+  - 药物
+  - 费用
+  - 医保
+  - 随访
+  - 工单
+  - 看板
+negativeKeywords:
+  - 挂号
+  - 预约
+  - 改约
+  - 取消预约
+  - 候补
+  - 复诊
+requiredSlots: []
+toolWhitelist:
+  - AI分诊导诊
+  - 检查检验流程提醒
+  - 慢病随访计划
+  - 费用与医保预估
+  - 用药安全评估
+  - 报告解读
+  - 医患工单
+  - 运营看板
+riskPolicy: medical_high_attention
+fallbackReply: 我可以做分诊建议、报告解读、用药风险和医保费用预估。

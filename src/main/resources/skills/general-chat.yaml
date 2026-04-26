@@ -1,0 +1,17 @@
+﻿skillId: general_chat
+description: 医疗导诊范围内的通用问答和说明
+priority: 10
+routeAgent: GENERAL
+maxAskTurns: 1
+askFallbackReply: 你可以直接告诉我想做什么，比如“我要挂号”或“帮我解读报告”。
+intentExamples:
+  - 你能做什么
+  - 如何使用这个系统
+keywords:
+  - 帮助
+  - 能做什么
+  - 使用说明
+requiredSlots: []
+toolWhitelist: []
+riskPolicy: baseline
+fallbackReply: 我可以回答医疗导诊与就医流程相关问题。
