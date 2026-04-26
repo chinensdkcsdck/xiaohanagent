@@ -44,6 +44,9 @@ build/
 .env
 application-local.properties
 src/main/resources/application-local.properties
+.mvn-settings.xml
+*.bak
+*.bak_*
 
 ### Local docs ###
 docs/
