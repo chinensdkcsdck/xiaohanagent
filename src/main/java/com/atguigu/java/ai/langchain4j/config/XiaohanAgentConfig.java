@@ -6,6 +6,9 @@ import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
+import com.atguigu.java.ai.langchain4j.rag.HybridContentRetriever;
+import com.atguigu.java.ai.langchain4j.rag.KnowledgeIndex;
+import com.atguigu.java.ai.langchain4j.rag.ChromaVectorStoreClient;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,12 @@ public class XiaohanAgentConfig {
     @Autowired
     private AiMetricsState aiMetricsState;
 
+    @Autowired
+    private KnowledgeIndex knowledgeIndex;
+
+    @Autowired
+    private ChromaVectorStoreClient chromaVectorStoreClient;
+
     @Value("${app.rag.observed.enabled:true}")
     private boolean ragObservedEnabled;
 
@@ -45,14 +54,9 @@ public class XiaohanAgentConfig {
                 .build();
     }
 
-    @Bean
+    @Bean(name = "contentRetrieverXiaohanPinecone")
     public ContentRetriever contentRetrieverXiaohanPinecone() {
-        ContentRetriever delegate = EmbeddingStoreContentRetriever.builder()
-                .embeddingModel(embeddingModel)
-                .embeddingStore(embeddingStore)
-                .maxResults(3)
-                .minScore(0.75)
-                .build();
+        ContentRetriever delegate = new HybridContentRetriever(embeddingModel, knowledgeIndex, chromaVectorStoreClient);
         if (!ragObservedEnabled) {
             return delegate;
         }

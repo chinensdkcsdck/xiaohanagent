@@ -2,7 +2,8 @@
 
 基于 `Spring Boot 3 + LangChain4j + MyBatis-Plus + MongoDB + MySQL` 的医疗助手示例项目，支持：
 - 多轮对话（MongoDB 持久化记忆）
-- RAG 检索增强（Pinecone，未配置时自动降级 InMemory）
+- RAG 检索增强（Chroma/Pinecone，可选；未配置时自动降级 InMemory）
+- 混合检索（向量 + BM25 多路召回、Metadata Filtering、RRF 融合排序）
 - AI 工具调用（门诊预约、候补改约、检查预约、复诊预约、就诊前准备）
 - 流式输出（SSE）
 - Flyway 自动迁移（启动建表）
@@ -15,7 +16,7 @@
 - LangChain4j 1.0.0-beta3
 - MyBatis-Plus
 - MySQL / MongoDB
-- Pinecone（可选）
+- Pinecone / Chroma（可选）
 
 ## 项目结构
 - `assistant/`：AI Service 接口定义
@@ -100,6 +101,12 @@
 ## 向量同步策略
 - 当调用工具 `维护就诊前准备` 新增或更新准备内容时，系统会自动同步该条内容到向量库。
 - `同步业务流程到知识库` 仍可作为全量补偿同步工具使用。
+
+## 混合检索与知识库评测
+- 入库采用语义边界切分（句末标点优先）和重叠切割，片段带有 `source`、`parentId`、`chunkIndex` 元数据；同一流程的片段可通过 `parentId` 关联。
+- 检索由 `HybridContentRetriever` 编排：BM25 词法召回 + EmbeddingStore 向量召回，再以 Reciprocal Rank Fusion（RRF）合并。
+- 可选配置 `CHROMA_ENABLED=true`、`CHROMA_URL` 和 `CHROMA_COLLECTION` 将片段异步 upsert 到 Chroma；本地 BM25 与现有 EmbeddingStore 仍作为可用回退。
+- 评测样例位于 `eval/ragas-sample.jsonl`，运行 `python eval/ragas_eval.py eval/ragas-sample.jsonl` 输出 Hit@3；安装 `ragas` 后可接入其语义指标评测。
 
 ## 监控与排障
 - 指标接口：`GET /actuator/metrics`
