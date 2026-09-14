@@ -3,8 +3,11 @@ package com.atguigu.java.ai.langchain4j.service.impl;
 import com.atguigu.java.ai.langchain4j.entity.VisitPreparation;
 import com.atguigu.java.ai.langchain4j.mapper.VisitPreparationMapper;
 import com.atguigu.java.ai.langchain4j.service.KnowledgeIngestionService;
+import com.atguigu.java.ai.langchain4j.rag.ChromaVectorStoreClient;
+import com.atguigu.java.ai.langchain4j.rag.KnowledgeIndex;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import dev.langchain4j.data.embedding.Embedding;
+import dev.langchain4j.data.document.Metadata;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStore;
@@ -26,6 +29,12 @@ public class KnowledgeIngestionServiceImpl implements KnowledgeIngestionService 
     @Autowired
     private VisitPreparationMapper visitPreparationMapper;
 
+    @Autowired
+    private KnowledgeIndex knowledgeIndex;
+
+    @Autowired
+    private ChromaVectorStoreClient chromaVectorStoreClient;
+
     @Override
     public int ingestWorkflowKnowledge() {
         List<String> docs = new ArrayList<>();
@@ -41,8 +50,9 @@ public class KnowledgeIngestionServiceImpl implements KnowledgeIngestionService 
             docs.add(buildGuideDocument(guide));
         }
 
+        int parent = 0;
         for (String text : docs) {
-            addTextToVectorStore(text);
+            addDocument(text, "workflow", "workflow-" + (++parent));
         }
         return docs.size();
     }
@@ -57,8 +67,9 @@ public class KnowledgeIngestionServiceImpl implements KnowledgeIngestionService 
         docs.add("可观测性指标：系统暴露 app.chat.requests、app.chat.latency、app.tool.calls、app.rag.requests、app.rag.recall.rate 等指标，可用于评估成功率与召回质量。");
         docs.add("知识更新流程：可调用 POST /api/knowledge/ingest-workflow 同步业务流程知识，调用 POST /api/knowledge/ingest-project-docs 同步项目说明知识。");
 
+        int parent = 0;
         for (String text : docs) {
-            addTextToVectorStore(text);
+            addDocument(text, "project", "project-" + (++parent));
         }
         return docs.size();
     }
@@ -68,7 +79,7 @@ public class KnowledgeIngestionServiceImpl implements KnowledgeIngestionService 
         if (guide == null || guide.getEnabled() == null || guide.getEnabled() != 1) {
             return;
         }
-        addTextToVectorStore(buildGuideDocument(guide));
+        addDocument(buildGuideDocument(guide), "preparation", "preparation-" + guide.getId());
     }
 
     private String buildGuideDocument(VisitPreparation guide) {
@@ -78,10 +89,33 @@ public class KnowledgeIngestionServiceImpl implements KnowledgeIngestionService 
                 + "，风险提示=" + safe(guide.getRiskNotice());
     }
 
-    private void addTextToVectorStore(String text) {
-        TextSegment segment = TextSegment.from(text);
-        Embedding embedding = embeddingModel.embed(text).content();
-        embeddingStore.add(embedding, segment);
+    private void addDocument(String text, String source, String parentId) {
+        List<String> chunks = semanticChunks(text, 220, 45);
+        for (int i = 0; i < chunks.size(); i++) {
+            Metadata metadata = new Metadata().put("source", source).put("parentId", parentId).put("chunkIndex", i);
+            TextSegment segment = TextSegment.from(chunks.get(i), metadata);
+            Embedding embedding = embeddingModel.embed(segment.text()).content();
+            String id = embeddingStore.add(embedding, segment);
+            knowledgeIndex.index(segment, embedding);
+            chromaVectorStoreClient.upsert(id, segment, embedding);
+        }
+    }
+
+    /** Split on semantic punctuation first, then apply a small overlap to preserve workflow context. */
+    private List<String> semanticChunks(String text, int maxChars, int overlapChars) {
+        if (text == null || text.isBlank()) return List.of();
+        List<String> chunks = new ArrayList<>();
+        StringBuilder current = new StringBuilder();
+        for (String sentence : text.split("(?<=[。！？；.!?])")) {
+            if (current.length() > 0 && current.length() + sentence.length() > maxChars) {
+                chunks.add(current.toString().trim());
+                String overlap = current.substring(Math.max(0, current.length() - overlapChars));
+                current = new StringBuilder(overlap);
+            }
+            current.append(sentence);
+        }
+        if (current.length() > 0) chunks.add(current.toString().trim());
+        return chunks;
     }
 
     private String safe(String text) {
