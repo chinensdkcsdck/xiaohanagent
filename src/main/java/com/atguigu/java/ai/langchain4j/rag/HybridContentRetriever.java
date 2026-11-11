@@ -27,18 +27,34 @@ public class HybridContentRetriever implements ContentRetriever {
     @Override
     public List<Content> retrieve(Query query) {
         if (query == null || query.text() == null || query.text().isBlank()) return List.of();
-        Embedding embedding = embeddingModel.embed(query.text()).content();
         Map<String, String> filters = query.metadata() == null ? Map.of() : Map.of();
-        List<Content> local = knowledgeIndex.search(query.text(), embedding, Math.max(1, topK), filters).stream()
-                .map(KnowledgeIndex.RankedContent::content).toList();
-        return merge(local, chromaVectorStoreClient.query(embedding, Math.max(1, topK), filters), topK);
+        return retrieveVariants(query.text(), filters);
     }
 
     public List<Content> retrieve(String query, Map<String, String> metadataFilters) {
-        Embedding embedding = embeddingModel.embed(query).content();
-        List<Content> local = knowledgeIndex.search(query, embedding, Math.max(1, topK), metadataFilters).stream()
-                .map(KnowledgeIndex.RankedContent::content).toList();
-        return merge(local, chromaVectorStoreClient.query(embedding, Math.max(1, topK), metadataFilters), topK);
+        return retrieveVariants(query, metadataFilters);
+    }
+
+    /** Agentic multi-query recall: original wording, medical wording and a HyDE-style hypothesis. */
+    private List<Content> retrieveVariants(String query, Map<String, String> filters) {
+        java.util.LinkedHashMap<String, Content> candidates = new java.util.LinkedHashMap<>();
+        for (String variant : List.of(query, medicalRewrite(query), hyde(query))) {
+            Embedding embedding = embeddingModel.embed(variant).content();
+            List<Content> local = knowledgeIndex.search(variant, embedding, Math.max(topK * 2, 6), filters).stream()
+                    .map(KnowledgeIndex.RankedContent::content).toList();
+            merge(local, chromaVectorStoreClient.query(embedding, Math.max(topK * 2, 6), filters), topK * 2)
+                    .forEach(content -> candidates.putIfAbsent(content.textSegment().text(), content));
+        }
+        return candidates.values().stream().limit(topK).toList();
+    }
+
+    private String medicalRewrite(String query) {
+        return query.replace("胃镜", "上消化道内镜检查")
+                .replace("心慌", "心悸").replace("胸闷", "胸部不适");
+    }
+
+    private String hyde(String query) {
+        return "医疗知识证据：" + medicalRewrite(query) + "的适用条件、流程和注意事项。";
     }
 
     private List<Content> merge(List<Content> local, List<dev.langchain4j.data.segment.TextSegment> chroma,

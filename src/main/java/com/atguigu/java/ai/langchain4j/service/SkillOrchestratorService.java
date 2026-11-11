@@ -10,7 +10,7 @@ import com.atguigu.java.ai.langchain4j.config.ToolInvocationTracker;
 import com.atguigu.java.ai.langchain4j.skill.SkillConflictResolver;
 import com.atguigu.java.ai.langchain4j.skill.SkillDefinition;
 import com.atguigu.java.ai.langchain4j.skill.SkillMatchResult;
-import com.atguigu.java.ai.langchain4j.skill.SkillMatcher;
+import com.atguigu.java.ai.langchain4j.skill.SkillRouter;
 import com.atguigu.java.ai.langchain4j.skill.SlotCheckResult;
 import com.atguigu.java.ai.langchain4j.skill.SlotChecker;
 import com.atguigu.java.ai.langchain4j.skill.SlotStateStore;
@@ -31,7 +31,7 @@ public class SkillOrchestratorService {
             + "我可以继续帮你整理就医信息（症状起始时间、既往病史、当前用药）供医生快速判断。";
 
     @Autowired
-    private SkillMatcher skillMatcher;
+    private SkillRouter skillRouter;
     @Autowired
     private SkillConflictResolver skillConflictResolver;
     @Autowired
@@ -61,7 +61,7 @@ public class SkillOrchestratorService {
             return EMERGENCY_REPLY;
         }
 
-        List<SkillMatchResult> ranked = skillMatcher.rank(userMessage);
+        List<SkillMatchResult> ranked = skillRouter.rank(userMessage);
         if (ranked.isEmpty()) {
             Counter.builder("app.skill.fallback")
                     .tag("reason", "no_match")
