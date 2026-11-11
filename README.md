@@ -13,7 +13,7 @@
   -> 返回流式结果并记录指标
 ~~~
 
-QA 文档中的 Planner 表示组合任务的拆分和推进；在当前代码中，入口编排主要由 SkillOrchestratorService 完成，Skill 定义位于 src/main/resources/skills/*.yaml。预约类请求在科室、日期和时段等必要信息不完整时先追问，参数完整后才允许进入预约 Agent，并通过工具白名单限制可调用范围。急危重症关键词会先走安全兜底，不直接进入普通预约流程。
+Planner 表示组合任务的拆分和推进，当前实现为 agent/Planner；入口编排由 SkillOrchestratorService 完成，Skill 定义位于 src/main/resources/skills/*.yaml。预约类请求在科室、日期和时段等必要信息不完整时先追问，参数完整后才允许进入预约 Agent，并通过工具白名单限制可调用范围。急危重症关键词会先走安全兜底，不直接进入普通预约流程。
 
 ## 主要能力
 
@@ -29,6 +29,8 @@ QA 文档中的 Planner 表示组合任务的拆分和推进；在当前代码�
 Skill 通过 YAML 配置意图示例、关键词、必填槽位、路由 Agent 和 Tool 白名单。SkillMatcher 对候选 Skill 排序，分数接近时要求用户澄清；SkillOrchestratorService 负责冲突处理、槽位状态合并和路由；SlotChecker 在执行前校验参数，ToolInvocationTracker 记录工具调用。
 
 当前主要 Skill 包括预约、通用问答和高级医疗能力，对应 AppointmentSkillAgent、GeneralSkillAgent 和 AdvancedSkillAgent。新增业务通常需要增加 Skill 配置、Agent 接口和 Tool 实现。
+
+TypedState 保存当前任务、待处理任务、Skill、槽位、Tool 结果和任务状态；CheckpointStore 将可恢复进度写入 Redis，保留 24 小时，并在 Redis 不可用时降级到进程内状态。它只用于恢复 Agent 流程，预约最终状态仍以 MySQL 为准。
 
 ## RAG 检索链路
 

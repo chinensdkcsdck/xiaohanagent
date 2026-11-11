@@ -3,6 +3,9 @@ package com.atguigu.java.ai.langchain4j.service;
 import com.atguigu.java.ai.langchain4j.assistant.AdvancedSkillAgent;
 import com.atguigu.java.ai.langchain4j.assistant.AppointmentSkillAgent;
 import com.atguigu.java.ai.langchain4j.assistant.GeneralSkillAgent;
+import com.atguigu.java.ai.langchain4j.agent.CheckpointStore;
+import com.atguigu.java.ai.langchain4j.agent.Planner;
+import com.atguigu.java.ai.langchain4j.agent.TypedState;
 import com.atguigu.java.ai.langchain4j.config.ToolInvocationTracker;
 import com.atguigu.java.ai.langchain4j.skill.SkillConflictResolver;
 import com.atguigu.java.ai.langchain4j.skill.SkillDefinition;
@@ -40,11 +43,17 @@ public class SkillOrchestratorService {
     @Autowired
     private GeneralSkillAgent generalSkillAgent;
     @Autowired
+    private Planner planner;
+    @Autowired
+    private CheckpointStore checkpointStore;
+    @Autowired
     private MeterRegistry meterRegistry;
     @Autowired(required = false)
     private List<SlotChecker> slotCheckers = List.of();
 
     public String chat(Long memoryId, String userMessage) {
+        TypedState planned = planner.plan(userMessage, checkpointStore.load(memoryId));
+        checkpointStore.save(memoryId, planned);
         if (isEmergency(userMessage)) {
             Counter.builder("app.skill.emergency.escalate")
                     .register(meterRegistry)
@@ -70,6 +79,9 @@ public class SkillOrchestratorService {
         }
 
         SkillDefinition skill = ranked.get(0).definition();
+        checkpointStore.save(memoryId, new TypedState(
+                planned.currentTask(), skill.skillId(), planned.pendingTasks(), planned.slots(),
+                planned.toolResults(), planned.taskStatus()));
         Counter.builder("app.skill.match")
                 .tag("skillId", skill.skillId())
                 .tag("status", "matched")
@@ -120,11 +132,15 @@ public class SkillOrchestratorService {
         String finalMessage = enrichMessage(memoryId, skill, userMessage);
         try {
             ToolInvocationTracker.setAllowedTools(skill.toolWhitelist());
-            return switch (route) {
+            String answer = switch (route) {
                 case "APPOINTMENT" -> appointmentSkillAgent.chat(memoryId, finalMessage);
                 case "ADVANCED" -> advancedSkillAgent.chat(memoryId, finalMessage);
                 default -> generalSkillAgent.chat(memoryId, userMessage);
             };
+            checkpointStore.save(memoryId, new TypedState(
+                    planned.currentTask(), skill.skillId(), planned.pendingTasks(), planned.slots(),
+                    Map.of("lastAnswer", answer == null ? "" : answer), "succeeded"));
+            return answer;
         } finally {
             ToolInvocationTracker.clearAllowedTools();
         }
