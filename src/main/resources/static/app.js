@@ -242,7 +242,16 @@ function buildGuestView() {
 
 function buildMainView() {
   const grid = el("section", "main-grid");
-  grid.append(buildChatPanel(), buildBizPanel());
+  const sidebar = el("aside", "workspace-sidebar");
+  sidebar.append(el("div", "eyebrow", "PERSONAL CARE"), el("h2", "sidebar-title", "我的就诊服务"), buildModuleList());
+  sidebar.append(el("p", "sidebar-note", "有序安排每一次就诊。\n如遇紧急情况，请及时前往急诊。"));
+  const content = el("div", "workspace-content");
+  const heading = el("div", "workspace-heading");
+  heading.append(el("div", "eyebrow", "YOUR HEALTH, THOUGHTFULLY ARRANGED"), el("h2", "workspace-title", currentModule().title), el("p", "workspace-caption", "选择一项服务，或让小涵协助您安排。"));
+  const columns = el("div", "workspace-columns");
+  columns.append(buildBizPanel(), buildChatPanel());
+  content.append(heading, columns);
+  grid.append(sidebar, content);
   return grid;
 }
 
@@ -274,10 +283,10 @@ function buildChatPanel() {
 
 function buildBizPanel() {
   const panel = el("section", "panel biz-panel");
-  panel.append(el("h3", "panel-title", "业务接口"));
+  panel.append(el("h3", "panel-title", "就诊服务"));
 
   const split = el("div", "biz-split");
-  split.append(buildModuleList(), buildApiDetail());
+  split.append(buildApiDetail());
 
   panel.append(split);
   return panel;
@@ -307,7 +316,7 @@ function buildApiDetail() {
     nav.append(chip);
   });
 
-  const meta = el("div", "api-meta", `${api.method} ${api.url}`);
+  const meta = el("div", "api-meta", "请核对就诊信息后提交，具体安排以服务返回结果为准。");
   const form = el("div", "form-grid");
 
   api.fields.forEach((field) => {
