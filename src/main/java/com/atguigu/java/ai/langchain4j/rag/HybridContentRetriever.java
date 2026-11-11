@@ -38,10 +38,12 @@ public class HybridContentRetriever implements ContentRetriever {
     /** Agentic multi-query recall: original wording, medical wording and a HyDE-style hypothesis. */
     private List<Content> retrieveVariants(String query, Map<String, String> filters) {
         java.util.LinkedHashMap<String, Content> candidates = new java.util.LinkedHashMap<>();
+        List<String> denseOnly = List.of(hyde(query));
         for (String variant : List.of(query, medicalRewrite(query), hyde(query))) {
             Embedding embedding = embeddingModel.embed(variant).content();
-            List<Content> local = knowledgeIndex.search(variant, embedding, Math.max(topK * 2, 6), filters).stream()
-                    .map(KnowledgeIndex.RankedContent::content).toList();
+            List<Content> local = denseOnly.contains(variant) ? List.of()
+                    : knowledgeIndex.search(variant, embedding, Math.max(topK * 2, 6), filters).stream()
+                        .map(KnowledgeIndex.RankedContent::content).toList();
             merge(local, chromaVectorStoreClient.query(embedding, Math.max(topK * 2, 6), filters), topK * 2)
                     .forEach(content -> candidates.putIfAbsent(content.textSegment().text(), content));
         }
