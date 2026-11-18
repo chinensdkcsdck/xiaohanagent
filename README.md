@@ -79,8 +79,11 @@ set DASHSCOPE_API_KEY=your-key
 set MYSQL_URL=jdbc:mysql://localhost:3306/xiaohan
 set MYSQL_USERNAME=root
 set MYSQL_PASSWORD=your-password
-mvn spring-boot:run
+mvn -q clean package -DskipTests
+java -jar target/xiaohanAgent-1.0-SNAPSHOT.jar
 ```
+
+Windows 下推荐使用上述可执行 JAR 方式，避免 Maven 直接启动时因依赖较多触发命令行长度限制。
 
 对话接口：
 
